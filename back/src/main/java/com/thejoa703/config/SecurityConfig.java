@@ -59,13 +59,13 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // 권한 설정
             .authorizeHttpRequests(auth -> auth
-            		.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                // Swagger, 인증 관련 경로는 모두 허용
+            	.requestMatchers(HttpMethod.OPTIONS , "/**").permitAll()  //#####
+                // Swagger, 인증 관련 경로는 모두 허용  ------ 점검 ; uploads
                 .requestMatchers(
                     "/auth/**", "/login/**", "/oauth2/**",
                     "/swagger-ui/**", "/v3/api-docs/**",
                     "/swagger-resources/**", "/webjars/**",
-                    "/configuration/**", "/upload/**"  , "/api/deptusers/**" , "/api/likes/**"
+                    "/configuration/**", "/uploads/**"  , "/api/deptusers/**" , "/api/likes/**"
                 ).permitAll()
                 // 전체조회만 허용
                 .requestMatchers(HttpMethod.GET, "/api/posts").permitAll()   
@@ -97,9 +97,8 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         
-        //
-        //                                                     개발환경              운영환경 (nginx 통해서 접근하는 실제주소)
-        configuration.setAllowedOriginPatterns(List.of("http://localhost:3000" , "http://52.64.115.64"));  //★ Front 포트번호
+        // 												개발환경 					운영환경(nginx 통해서 접근하는 실제주소)
+        configuration.setAllowedOriginPatterns(List.of("http://localhost:3000" , "http://54.206.218.23"));  //★ Front 포트번호
 
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
