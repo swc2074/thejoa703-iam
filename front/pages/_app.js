@@ -16,6 +16,5 @@ function MyApp({ Component, pageProps }) {
     </AppLayout>
   );
 }
-
 // Redux wrapper 적용
 export default wrapper.withRedux(MyApp);
